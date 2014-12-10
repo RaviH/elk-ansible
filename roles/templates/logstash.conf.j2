@@ -1,0 +1,23 @@
+input {
+   file {
+      path => "/opt/application/logs/service-container.log"
+      type => stag_bpi_app
+      start_position => beginning
+      codec =>  multiline {
+         'negate' => true
+         'pattern' => '^\d'
+         'what' => 'previous'
+       }
+    }
+}
+
+filter {
+   grok { 
+      match => { "message" => "%{TIME:time} %{LOGLEVEL:log_level} %{GREEDYDATA:message}" }
+   }
+}
+
+output {
+   stdout { codec => rubydebug }
+   redis { host => "10.10.160.204" data_type => "list" key => "logstash" }
+}

@@ -1,0 +1,6 @@
+- hosts: elk-server
+  user: root
+  sudo: yes
+  roles:
+    - elasticsearch
+    - logstash
