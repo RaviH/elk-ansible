@@ -1,0 +1,8 @@
+- name: Download archive
+  get_url: url=https://download.elasticsearch.org/kibana/kibana/kibana-3.1.2.tar.gz dest=/tmp
+
+- name: Create kibana directory
+  file: path=/opt/applications owner=root group=root mode=0644 state=directory
+
+- name: Unarchive kibana
+  unarchive: src=/tmp/kibana-3.1.2.tar.gz dest=/opt/applications copy=no

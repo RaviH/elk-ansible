@@ -1,0 +1,11 @@
+- name: Install Nginx
+  apt: name=nginx state=present update-cache=yes
+
+- name: create dir /var/www/kibana3
+  file: dest=/var/www/kibana3 state=directory
+
+- name: copy template to
+  file: src=/opt/applications/kibana-3.1.2 dest=/usr/share/nginx/www/kibana3 state=link
+
+- name: Start nginx service
+  service: name=nginx state=started

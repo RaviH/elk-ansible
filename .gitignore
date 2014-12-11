@@ -1,0 +1,3 @@
+test/vagrant_ansible_*
+.idea
+test/.vagrant

@@ -1,0 +1,30 @@
+VAGRANTFILE_API_VERSION = "2"
+
+box_name = "precise64"
+box_url = "http://files.vagrantup.com/precise64.box"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  config.vm.box = box_name
+  config.vm.box_url = box_url
+  config.ssh.forward_agent = true
+
+  # Needed so the vagrant box can connect to internet
+  config.vm.provider :virtualbox do |vb|
+    vb.auto_nat_dns_proxy = false
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+
+  config.vm.define :ansible_test do |ansible_test|
+    ansible_test.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
+
+    ansible_test.ssh.forward_agent = true
+
+    ansible_test.vm.provision "ansible" do |ansible|
+      ansible.playbook = "test.yml"
+      ansible.verbose = "vvvv"
+      ansible.extra_vars = {
+        module: "script_mgmt",
+      }
+    end
+  end
+end

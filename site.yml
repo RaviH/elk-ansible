@@ -4,3 +4,5 @@
   roles:
     - elasticsearch
     - logstash
+    - kibana
+    - nginx

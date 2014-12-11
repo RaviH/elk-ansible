@@ -1,0 +1,8 @@
+- hosts: all
+  serial: 1
+  sudo: yes  
+  roles:
+  - { role: logstash}
+  - { role: elasticsearch}
+  - { role: kibana}
+  - { role: nginx}

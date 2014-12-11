@@ -1,11 +1,11 @@
-- name: Install logstash key
+- name: Install key
   apt_key: url=https://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
 
-- name: Add logstash repository
+- name: Add repository
   apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/1.4/debian stable main' state=present
 
-- name: Install elasticsearch package
+- name: Install package
   apt: name=elasticsearch state=present update_cache=yes
 
-- name: Start Elasticsearch
+- name: Start service
   service: name=elasticsearch state=started

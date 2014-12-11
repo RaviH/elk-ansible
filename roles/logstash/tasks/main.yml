@@ -11,7 +11,7 @@
   apt: name=logstash state=present update_cache=yes
 
 - name: Copy Logstash config template
-  template: 
+  template: src=logstash.conf.j2 dest=/etc/logstash/conf.d/logstash.conf
 
 - name: Start logstash
-  service: name=elasticsearch state=started
+  service: name=logstash state=started
