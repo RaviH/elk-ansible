@@ -19,5 +19,5 @@ filter {
 
 output {
    stdout { codec => rubydebug }
-   redis { host => "10.10.160.204" data_type => "list" key => "logstash" }
+   redis { host => "{{ redis_ip_address }}" data_type => "list" key => "logstash" }
 }

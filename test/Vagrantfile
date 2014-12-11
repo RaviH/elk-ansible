@@ -22,9 +22,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     ansible_test.vm.provision "ansible" do |ansible|
       ansible.playbook = "test.yml"
       ansible.verbose = "vvvv"
-      ansible.extra_vars = {
-        module: "script_mgmt",
-      }
     end
   end
 end
