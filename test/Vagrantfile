@@ -15,8 +15,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define :ansible_test do |ansible_test|
-    ansible_test.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
-
+    # ansible_test.vm.network :forwarded_port, guest: 22, host: 2222, id: 'ssh', auto_correct: true
+    ansible_test.vm.network "public_network"
     ansible_test.ssh.forward_agent = true
 
     ansible_test.vm.provision "ansible" do |ansible|
