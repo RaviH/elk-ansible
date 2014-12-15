@@ -1,0 +1,5 @@
+jboss_install_dir: /usr/local/share/jboss
+jboss_deployments_dir: "{{ jboss_install_dir}}/standalone/deployments"
+kibana_war_dir: "{{ jboss_deployments_dir }}/kibana.war"
+server_ip: 192.168.1.9
+start_jboss_command: "sudo nohup {{ jboss_install_dir }}/bin/standalone.sh -Djboss.bind.address={{ server_ip }} -Djboss.bind.address.management={{ server_ip }} &"

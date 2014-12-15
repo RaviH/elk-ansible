@@ -1,0 +1,29 @@
+- name: Create JBoss group
+  group: name=jboss state=present
+
+- name: Download jboss
+  get_url: url=http://download.jboss.org/jbossas/7.1/jboss-as-7.1.1.Final/jboss-as-7.1.1.Final.tar.gz dest=/tmp/jboss.tar.gz
+
+- name: Create directory /opt/applications
+  file: path=/opt/applications state=directory
+
+- name: Unarchive JBoss
+  unarchive: src=/tmp/jboss.tar.gz dest=/opt/applications copy=no
+
+- name: Make a soft link to /usr/local/share
+  file: src=/opt/applications/jboss-as-7.1.1.Final dest=/usr/local/share/jboss state=link
+
+- name: Create /usr/local/share/jboss/kibana.war link
+  file: src=/opt/applications/kibana-3.1.2/ dest={{ kibana_war_dir }} state=link
+
+- name: Create /usr/local/share/jboss/kibana.war/WEB-INF directory
+  file: dest={{ kibana_war_dir }}/WEB-INF state=directory
+
+- name: Create WEB-INF/web.xml
+  template: src=web.xml.j2 dest={{ kibana_war_dir }}/WEB-INF/web.xml
+
+- name: Create dodeploy file
+  file: dest={{ jboss_deployments_dir }}/kibana.war.dodeploy state=touch
+
+- name: Start JBoss
+  command: "{{ start_jboss_command }}"
